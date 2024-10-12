@@ -56,7 +56,7 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);SELECT industry,
 
-#Statistics 
+# Analysis:
 
 # Which companies have maternity leave for more than 12 weeeks *and* at least 20 paid time off days?
 SELECT company_name, industry
@@ -69,4 +69,16 @@ SELECT company_name, MAX(revenue)
 FROM fortune_companies
 WHERE industry = 'Technology';
 
+#Which company name, employees and industry revenue based on company size, from large to small?
+SELECT company_name,industry,employees,
+CASE  WHEN revenue > 400 THEN 'Large'
+WHEN revenue BETWEEN 200 AND 400 THEN 'Medium'
+ELSE 'Small'
+END AS company_size
+FROM fortune_companies;
 
+#Which industries have an average maternity_leave_weeks of at least 10 weeks, and what industry they belong to?
+SELECT industry, AVG(maternity_leave_weeks) AS avg_maternity_leave
+FROM fortune_companies
+GROUP BY industry
+HAVING  AVG(maternity_leave_weeks) > 10;
