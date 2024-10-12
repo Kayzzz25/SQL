@@ -56,13 +56,17 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);SELECT industry,
 
+#Statistics 
 
-
-AVG(avg_employee_tenure) AS avg_tenure,
-COUNT(company_id) AS num_companies,
-SUM(employees) AS total_employees,
-AVG(revenue) AS avg_revenue
+# Which companies have maternity leave for more than 12 weeeks *and* at least 20 paid time off days?
+SELECT company_name, industry
 FROM fortune_companies
-GROUP BY industry
-HAVING AVG(avg_employee_tenure) > 6
-ORDER BY avg_tenure DESC;
+WHERE paid_time_off_days>20
+AND maternity_leave_weeks=12
+
+# Which company in the Technology industry has the most revenue, and what's their revenue? 
+SELECT company_name, MAX(revenue)
+FROM fortune_companies
+WHERE industry = 'Technology';
+
+
